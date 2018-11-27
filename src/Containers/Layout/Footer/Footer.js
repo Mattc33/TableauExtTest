@@ -23,20 +23,7 @@ let dataSet1 = [
     }
 ]
 
-let string
-
 class Footer extends Component {
-
-
-    componentWillMount() {
-        tableau.extensions.initializeAsync().then(() => {
-            const tableauDashboardName = tableau.extensions.dashboardContent.dashboard.name
-            string = tableauDashboardName
-            dataSet1[0].name = string
-
-            console.log(dataSet1)
-        })
-    }
 
     render() {
         return (

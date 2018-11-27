@@ -7,7 +7,8 @@ import styles from './Header.module.sass'
 class Header extends Component {
 
     state = {
-        dashboardName: ''
+        dashboardName: '',
+        isPoppedOut: true
     }
 
     componentWillMount() {
@@ -17,15 +18,10 @@ class Header extends Component {
         })
     }
 
-    openRequestedPopup() {
-        window.open('h', '_blank')
-    }
-
     render() {
         return (
             <div className={styles.HeaderContainer}>
                 <h2>Tableau Exporter POC</h2>
-                <button onClick={this.openRequestedPopup}></button>
                 <h4>Dashboard: {this.state.dashboardName}</h4>
             </div>
         )
