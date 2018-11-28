@@ -22,7 +22,7 @@ class Header extends Component {
         return (
             <div className={styles.HeaderContainer}>
                 <h2>Tableau Exporter POC</h2>
-                <h4>Dashboard: {this.state.dashboardName}</h4>
+                <h4>Dashboard: <span>{this.state.dashboardName}</span></h4>
             </div>
         )
     }

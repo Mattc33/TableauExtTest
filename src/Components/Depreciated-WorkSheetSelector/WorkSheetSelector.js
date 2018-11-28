@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import styles from './WorkSheetSelector.module.sass'
 import { Radio, Button } from 'antd'
+import { connect } from 'react-redux'
 
 import Auxx from '../../HOC/Auxx'
 
@@ -8,7 +9,6 @@ import Auxx from '../../HOC/Auxx'
 /* global tableau */
 
 const RadioGroup = Radio.Group
-
 class WorkSheetSelector extends Component {
 
     state = {
@@ -36,6 +36,9 @@ class WorkSheetSelector extends Component {
                 })
 
                 console.log(colData, rowData)
+                // load col and row data to store
+                this.props.onPassGridData(colData, rowData)
+                console.log(this.props.multiDataSet)
             })
     }
 
@@ -61,10 +64,29 @@ class WorkSheetSelector extends Component {
 
                 <Button onClick={this.loadSelectedData}>Load Selected Data</Button>
 
-                <hr/>
             </Auxx>
         )
     }
 }
 
-export default WorkSheetSelector
+const mapStateToProps = (state) => {
+    return {
+        multiDataSet: state.multiDataSet
+    }
+}
+
+const mapDispatchToProps = (dispatch) => {
+    return {
+        onPassGridData: (colData, rowData) => 
+            dispatch(
+                {
+                    type: 'UPDATE_DATA_SET', 
+                    colVals: colData, 
+                    rowVals: rowData
+                }
+            )
+    }
+}
+
+
+export default connect(mapStateToProps, mapDispatchToProps)(WorkSheetSelector)
