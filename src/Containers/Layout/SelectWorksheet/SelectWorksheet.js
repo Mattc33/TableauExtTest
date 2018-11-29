@@ -24,22 +24,20 @@ class SelectWorksheet extends Component {
     }
 
     inputChangeHandler = (sheetName) => {
-        tableau.extensions.dashboardContent.dashboard.worksheets
-            .find( sheet => sheet.name === sheetName )
-            .getUnderlyingDataAsync()
-                .then( (marks) => {
-                    const colData = marks._columns.map( eaCol => eaCol.fieldName)
-                    const rowData = marks._data.map( eaRow => {
-                        return eaRow.map( eaVal => {
-                            return eaVal.value
-                        })
-                    })
+        if ( sheetName !== '' ) {
+            this.props.onSetSelectedWorksheet(sheetName)
 
-                    console.log(colData, rowData)
-                    // load col and row data to store
-                    this.props.onPassGridData(colData, rowData)
-                    console.log(this.props.multiDataSet)
-                })
+            tableau.extensions.dashboardContent.dashboard.worksheets // ? find worksheet data based on name
+                .find( sheet => sheet.name === sheetName )
+                .getUnderlyingDataAsync()
+                    .then( (marks) => {
+                        const colData = marks._columns.map( eaCol => eaCol.fieldName)
+                        const rowData = marks._data.map( eaRow => eaRow.map( eaVal => eaVal.value))
+                        // ? pass col/row data off to redux store
+                        this.props.onPassGridData(colData, rowData)
+                        console.log(JSON.stringify(this.props.multiDataSet))
+                    })
+        }
     }
 
     render() {
@@ -57,7 +55,7 @@ class SelectWorksheet extends Component {
                     { 
                         this.state.worksheets.map( eaSheet => 
                             <Option value={eaSheet} key={eaSheet} className={styles.Option}>
-                                <Icon type="bar-chart" /><span> {eaSheet}</span>
+                                <Icon type="area-chart" /><span> {eaSheet}</span>
                             </Option>) 
                     }
                 </Select>
@@ -66,18 +64,23 @@ class SelectWorksheet extends Component {
     }
 }
 
-const mapDispatchToProps = (dispatch) => {
+const mapStateToProps = (state) => {
     return {
-        onPassGridData: (colData, rowData) => 
-            dispatch(
-                {
-                    type: 'UPDATE_DATA_SET', 
-                    colVals: colData, 
-                    rowVals: rowData
-                }
-            )
+        multiDataSet: state.multiDataSet
     }
 }
 
+const mapDispatchToProps = (dispatch) => {
+    return {
+        onPassGridData: (colData, rowData) => dispatch(
+            {
+                type: 'UPDATE_DATA_SET', 
+                colVals: colData, 
+                rowVals: rowData
+            }
+        ),
+        onSetSelectedWorksheet: (sheetName) => dispatch({type: 'SELECT_SHEET', value: sheetName})
+    }
+}
 
-export default connect(null, mapDispatchToProps)(SelectWorksheet)
+export default connect(mapStateToProps, mapDispatchToProps)(SelectWorksheet)

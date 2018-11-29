@@ -1,50 +1,65 @@
 const initialState = {
-    multiDataSet: []
+    multiDataSet: [],
+    sheetName: '',
+    userConfig: {
+        userSelectedColumns: [],
+        bold: 
+            {
+                // headers: [
+                //     {'headerIndex': 0, 'value': false},
+                //     {'headerIndex': 1, 'value': false}
+                // ],
+                // columns: [
+                //     {'columnIndex': 0, 'value': false},
+                //     {'columnIndex': 1, 'value': false}
+                // ],
+                // totalRow: false
+            },
+        backgroundColor: 
+            {                
+                // headers: [
+                // {'headerIndex': 0, 'value': false, 'hex': '000000'},
+                // {'headerIndex': 1, 'value': false, 'hex': '000000'}
+                // ],
+                // columns: [
+                //     {'columnIndex': 0, 'value': false, 'hex': '000000'},
+                //     {'columnIndex': 1, 'value': false, 'hex': '000000'}
+                // ],
+                // totalRow: {'value': false, 'hex': '000000'}
+            }
+    }
 }
 
 const reducer = (state = initialState, action) => {
     const newState = {...state}
 
-    if (action.type === 'UPDATE_DATA_SET') {
-        return {
-            ...state,
-            multiDataSet: state.multiDataSet.concat({
-                columns: action.colVals,
-                data: action.rowVals
-            })
-        }
+    switch(action.type) {
+        case 'UPDATE_DATA_SET':
+            return {
+                ...state,
+                multiDataSet: state.multiDataSet.concat({
+                    columns: action.colVals,
+                    data: action.rowVals
+                })
+            }
+        case 'SELECT_SHEET':
+            return {
+                ...state,
+                sheetName: action.value
+            }
+        case 'SET_SELECTED_COLUMNS':
+            return {
+                ...state,
+                userConfig: {
+                    ...state.userConfig,
+                    userSelectedColumns: action.value
+                }
+            }
+        default :
+            break
     }
 
     return newState
 }
 
 export default reducer
-
-/*
-
-const multiDataSet = [
-    {
-        columns: ["Name", "Salary", "Sex"],
-        data: [
-            ["Johnson", 30000, "Male"],
-            ["Monika", 355000, "Female"],
-            ["Konstantina", 20000, "Female"],
-            ["John", 250000, "Male"],
-            ["Josef", 450500, "Male"],
-        ]
-    },
-    {
-        xSteps: 1, // Will start putting cell with 1 empty cell on left most
-        ySteps: 5, //will put space of 5 rows,
-        columns: ["Name", "Department"],
-        data: [
-            ["Johnson", "Finance"],
-            ["Monika", "IT"],
-            ["Konstantina", "IT Billing"],
-            ["John", "HR"],
-            ["Josef", "Testing"],
-        ]
-    }
-];
-
-*/

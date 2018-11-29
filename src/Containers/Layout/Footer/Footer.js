@@ -6,66 +6,28 @@ import { connect } from 'react-redux'
 const ExcelFile = ReactExport.ExcelFile
 const ExcelSheet = ReactExport.ExcelFile.ExcelSheet
 
-// const multiDataSet = [
-//     {
-//         columns: ["Name", "Salary", "Sex"],
-//         data: [
-//             ["Johnson", 30000, "Male"],
-//             ["Monika", 355000, "Female"],
-//             ["Konstantina", 20000, "Female"],
-//             ["John", 250000, "Male"],
-//             ["Josef", 450500, "Male"],
-//         ]
-//     },
-//     {
-//         xSteps: 1, // Will start putting cell with 1 empty cell on left most
-//         ySteps: 5, //will put space of 5 rows,
-//         columns: ["Name", "Department"],
-//         data: [
-//             ["Johnson", "Finance"],
-//             ["Monika", "IT"],
-//             ["Konstantina", "IT Billing"],
-//             ["John", "HR"],
-//             ["Josef", "Testing"],
-//         ]
-//     }
-// ];
+const multiDataSet = [{"columns":["Date","Decade","Metric","Value"],"data":[["2001-06-01 00:00:00","1900","Inflation rate","-0.024691215"],["2002-06-01 00:00:00","1900","Inflation rate","0.088606531"],["2003-06-01 00:00:00","1900","Inflation rate","0"],["2004-06-01 00:00:00","1900","Inflation rate","-0.011626365"],["2005-06-01 00:00:00","1900","Inflation rate","0.02353026"],["2006-06-01 00:00:00","1900","Inflation rate","0.034480059"],["2007-06-01 00:00:00","1900","Inflation rate","0.077775045"],["2008-06-01 00:00:00","1900","Inflation rate","-0.061851147"],["1930-06-01 00:00:00","1930","Inflation rate","-0.01754386"],["1931-06-01 00:00:00","1930","Inflation rate","-0.101190476"],["1932-06-01 00:00:00","1930","Inflation rate","-0.099337748"],["1933-06-01 00:00:00","1930","Inflation rate","-0.066176471"],["1934-06-01 00:00:00","1930","Inflation rate","0.05511811"],["1935-06-01 00:00:00","1930","Inflation rate","0.02238806"],["1936-06-01 00:00:00","1930","Inflation rate","0.00729927"],["1937-06-01 00:00:00","1930","Inflation rate","0.043478261"],["1938-06-01 00:00:00","1930","Inflation rate","-0.020833333"],["1939-06-01 00:00:00","1930","Inflation rate","-0.021276596"],["1940-06-01 00:00:00","1940","Inflation rate","0.02173913"],["1941-06-01 00:00:00","1940","Inflation rate","0.042553191"],["1942-06-01 00:00:00","1940","Inflation rate","0.108843537"],["1943-06-01 00:00:00","1940","Inflation rate","0.073619632"],["1944-06-01 00:00:00","1940","Inflation rate","0.005714286"],["1945-06-01 00:00:00","1940","Inflation rate","0.028409091"],["1946-06-01 00:00:00","1940","Inflation rate","0.033149171"],["1947-06-01 00:00:00","1940","Inflation rate","0.176470588"],["1948-06-01 00:00:00","1940","Inflation rate","0.095454545"],["1949-06-01 00:00:00","1940","Inflation rate","-0.008298755"],["1950-06-01 00:00:00","1950","Inflation rate","-0.0041841"],["1951-06-01 00:00:00","1950","Inflation rate","0.088235294"],["1952-06-01 00:00:00","1950","Inflation rate","0.023166023"],["1953-06-01 00:00:00","1950","Inflation rate","0.011320755"],["1954-06-01 00:00:00","1950","Inflation rate","0.003731343"],["1955-06-01 00:00:00","1950","Inflation rate","-0.007434944"],["1956-06-01 00:00:00","1950","Inflation rate","0.018726592"],["1957-06-01 00:00:00","1950","Inflation rate","0.033088235"],["1958-06-01 00:00:00","1950","Inflation rate","0.028469751"],["1959-06-01 00:00:00","1950","Inflation rate","0.006920415"],["1960-06-01 00:00:00","1960","Inflation rate","0.017182131"],["1961-06-01 00:00:00","1960","Inflation rate","0.006756757"],["1962-06-01 00:00:00","1960","Inflation rate","0.013422819"],["1963-06-01 00:00:00","1960","Inflation rate","0.013245033"],["1964-06-01 00:00:00","1960","Inflation rate","0.013071895"],["1965-06-01 00:00:00","1960","Inflation rate","0.019354839"],["1966-06-01 00:00:00","1960","Inflation rate","0.025316456"],["1967-06-01 00:00:00","1960","Inflation rate","0.027777778"],["1968-06-01 00:00:00","1960","Inflation rate","0.042042042"],["1969-06-01 00:00:00","1960","Inflation rate","0.054755043"],["1970-06-01 00:00:00","1970","Inflation rate","0.06010929"],["1971-06-01 00:00:00","1970","Inflation rate","0.046391753"],["1972-06-01 00:00:00","1970","Inflation rate","0.027093596"],["1973-06-01 00:00:00","1970","Inflation rate","0.059952038"],["1974-06-01 00:00:00","1970","Inflation rate","0.108597285"],["1975-06-01 00:00:00","1970","Inflation rate","0.093877551"],["1976-06-01 00:00:00","1970","Inflation rate","0.059701493"],["1977-06-01 00:00:00","1970","Inflation rate","0.068661972"],["1978-06-01 00:00:00","1970","Inflation rate","0.074135091"],["1979-06-01 00:00:00","1970","Inflation rate","0.108895706"],["1980-06-01 00:00:00","1980","Inflation rate","0.14384509"],["1981-06-01 00:00:00","1980","Inflation rate","0.095525998"],["1982-06-01 00:00:00","1980","Inflation rate","0.070640177"],["1983-06-01 00:00:00","1980","Inflation rate","0.025773196"],["1984-06-01 00:00:00","1980","Inflation rate","0.042211055"],["1985-06-01 00:00:00","1980","Inflation rate","0.037608486"],["1986-06-01 00:00:00","1980","Inflation rate","0.017657993"],["1987-06-01 00:00:00","1980","Inflation rate","0.03652968"],["1988-06-01 00:00:00","1980","Inflation rate","0.039647577"],["1989-06-01 00:00:00","1980","Inflation rate","0.051694915"],["1990-06-01 00:00:00","1990","Inflation rate","0.046736503"],["1991-06-01 00:00:00","1990","Inflation rate","0.046959199"],["1992-06-01 00:00:00","1990","Inflation rate","0.030882353"],["1993-06-01 00:00:00","1990","Inflation rate","0.029957204"],["1994-06-01 00:00:00","1990","Inflation rate","0.024930748"],["1995-06-01 00:00:00","1990","Inflation rate","0.030405405"],["1996-06-01 00:00:00","1990","Inflation rate","0.027540984"],["1997-06-01 00:00:00","1990","Inflation rate","0.022973835"],["1998-06-01 00:00:00","1990","Inflation rate","0.016843419"],["1999-06-01 00:00:00","1990","Inflation rate","0.019631902"],["2000-06-01 00:00:00","2000","Inflation rate","0.037304452"],["2001-06-01 00:00:00","2000","Inflation rate","0.032482599"],["2002-06-01 00:00:00","2000","Inflation rate","0.010674157"],["2003-06-01 00:00:00","2000","Inflation rate","0.021122846"],["2004-06-01 00:00:00","2000","Inflation rate","0.032661949"],["2005-06-01 00:00:00","2000","Inflation rate","0.02530311"],["2006-06-01 00:00:00","2000","Inflation rate","0.043187661"],["2007-06-01 00:00:00","2000","Inflation rate","0.026870379"],["2008-06-01 00:00:00","2000","Inflation rate","0.0502179"]]}]
 
 const Footer = (props) => (
+
+
+
+    <div>
+
+    <button onClick={ () => console.log('test', props.userConfig) }>TEST</button>
+
     <ExcelFile>
-        <ExcelSheet dataSet={props.multiDataSet} name="Organization"/>
+        <ExcelSheet dataSet={multiDataSet} name="Organization"/>
     </ExcelFile>
+    </div>
+
 )
 
 const mapStateToProps = (state) => {
     return {
-        multiDataSet: state.multiDataSet
+        multiDataSet: state.multiDataSet,
+        userConfig: state.userConfig
     }
 }
 
 export default connect(mapStateToProps)(Footer)
-
-// const multiDataSet = [
-//     {
-//         columns: ["Name", "Salary", "Sex"],
-//         data: [
-//             ["Johnson", 30000, "Male"],
-//             ["Monika", 355000, "Female"],
-//             ["Konstantina", 20000, "Female"],
-//             ["John", 250000, "Male"],
-//             ["Josef", 450500, "Male"],
-//         ]
-//     },
-//     {
-//         xSteps: 1, // Will start putting cell with 1 empty cell on left most
-//         ySteps: 5, //will put space of 5 rows,
-//         columns: ["Name", "Department"],
-//         data: [
-//             ["Johnson", "Finance"],
-//             ["Monika", "IT"],
-//             ["Konstantina", "IT Billing"],
-//             ["John", "HR"],
-//             ["Josef", "Testing"],
-//         ]
-//     }
-// ];

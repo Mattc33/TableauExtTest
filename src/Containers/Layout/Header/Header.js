@@ -7,8 +7,7 @@ import styles from './Header.module.sass'
 class Header extends Component {
 
     state = {
-        dashboardName: '',
-        isPoppedOut: true
+        dashboardName: ''
     }
 
     componentWillMount() {

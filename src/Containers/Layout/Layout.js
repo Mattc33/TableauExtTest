@@ -4,6 +4,8 @@ import { Collapse } from 'antd'
 
 import Header from './Header/Header'
 import SelectWorksheet from './SelectWorksheet/SelectWorksheet'
+import SelectColumns from './SelectColumns/SelectColumns'
+import Configuration from './Configuration/Configuration'
 import Footer from './Footer/Footer'
 
 const Panel = Collapse.Panel
@@ -17,9 +19,18 @@ const Layout = () => (
             </Panel>
 
             <Panel header="2. Select Columns" key="2">
+                <SelectColumns />
             </Panel>
 
-            <Panel header="3. Export Data" key="3">
+            <Panel header="3. Configuration" key="3">
+                <Configuration />
+            </Panel>
+
+            <Panel header="4. Preview" key="4">
+
+            </Panel>
+
+            <Panel header="5. Export Data" key="5">
                 <Footer />
             </Panel>
 
