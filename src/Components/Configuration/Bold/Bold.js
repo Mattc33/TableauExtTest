@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import styles from './Bold.module.sass'
-import { Checkbox } from 'antd'
-import { Connect } from 'react-redux'
+import { Checkbox, Divider } from 'antd'
+import { connect } from 'react-redux'
 
 const CheckboxGroup = Checkbox.Group
 
@@ -53,7 +53,7 @@ class Bold extends Component {
     state = {
         // checkedList: defaultCheckedList,
         indeterminate: true,
-        checkAll: false,
+        checkAll: false
     }
 
     onChange = (checkedList) => {
@@ -66,20 +66,61 @@ class Bold extends Component {
       }
 
     render() {
+        console.log(this.props.userConfig)
         return (
+            
             <div className={styles.BoldContainer}>
-                {this.props.tabTitle}
-                <Checkbox
-                    indeterminate={this.state.indeterminate}
-                    onChange={this.onCheckAllChange}
-                    checked={this.state.checkAll}
-                >
-                Check all
-                </Checkbox>
-                <CheckboxGroup options={plainOptions} value={this.state.checkedList} onChange={this.onChange} />
+                <Divider orientation="left">Column Headers</Divider>
+                <div>
+                    <Checkbox
+                        indeterminate={this.state.indeterminate}
+                        onChange={this.onCheckAllChange}
+                        checked={this.state.checkAll}
+                    >
+                    Check all
+                    </Checkbox>
+                    <Divider type="vertical" />
+                    <CheckboxGroup options={this.props.userConfig.userSelectedColumns}/>
+                </div>
+                
+                <Divider orientation="left">Whole Column</Divider>
+                <div>
+                    <Checkbox
+                        indeterminate={this.state.indeterminate}
+                        onChange={this.onCheckAllChange}
+                        checked={this.state.checkAll}
+                    >
+                    Check all
+                    </Checkbox>
+                    <Divider type="vertical" />
+                    <CheckboxGroup options={this.props.userConfig.userSelectedColumns}/>
+                </div>
+                
+                <Divider orientation="left">Final Row</Divider>
+                <div>
+                    <Checkbox
+                        onChange={this.onCheckAllChange}
+                    >
+                     Final Row
+                    </Checkbox>
+                </div>
+
+                {/* options={[1,2,3,4]} value={this.state.checkedList} onChange={this.onChange} */}
             </div>
         )
     }
 }
 
-export default Bold
+const mapStateToProps = (state) => {
+    return {
+        userConfig: state.userConfig
+    }
+}
+
+const mapDispatchToProps = (dispatch) => {
+    return {
+        onSetSelectedColumns: (columnsArr) => dispatch({type: 'SET_SELECTED_COLUMNS', value: columnsArr})
+    }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Bold)

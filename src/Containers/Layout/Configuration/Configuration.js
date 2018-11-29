@@ -33,7 +33,7 @@ class Configuration extends Component {
                     </Radio.Group> */}
                     <Tabs
                         defaultActiveKey="1"
-                        tabPosition="right"
+                        tabPosition="left"
                         style={{ height: 'auto' }}
                     >
                         {/* If this gets any larger, use an obj with map */}
