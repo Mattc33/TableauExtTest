@@ -9,28 +9,15 @@ const TabPane = Tabs.TabPane
 
 class Configuration extends Component {
 
-    // state = {
-    //     mode: 'top'
+    // componentDidUpdate() {
+    //     console.log('Configuration', this.props.userConfig)
     // }
-
-    componentDidUpdate() {
-        console.log('Configuration', this.props.userConfig)
-    }
-
-    handleModeChange = (e) => {
-        const mode = e.target.value
-        this.setState({ mode })
-    }
 
     render() {
         return this.props.userConfig.userSelectedColumns.length > 0
         ?
             (
                 <div className={styles.ConfigurationContainer}>
-                    {/* <Radio.Group onChange={this.handleModeChange} value={this.state.mode} style={{ marginBottom: 8 }}>
-                        <Radio.Button value="top">Horizontal</Radio.Button>
-                        <Radio.Button value="left">Vertical</Radio.Button>
-                    </Radio.Group> */}
                     <Tabs
                         defaultActiveKey="1"
                         tabPosition="left"

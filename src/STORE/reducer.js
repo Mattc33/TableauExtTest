@@ -5,25 +5,19 @@ const initialState = {
         userSelectedColumns: [],
         bold: 
             {
-                // headers: [
-                //     {'headerIndex': 0, 'value': false},
-                //     {'headerIndex': 1, 'value': false}
-                // ],
-                // columns: [
-                //     {'columnIndex': 0, 'value': false},
-                //     {'columnIndex': 1, 'value': false}
-                // ],
-                // totalRow: false
+                headers: [],
+                columns: [],
+                totalRow: false
             },
         backgroundColor: 
             {                
                 // headers: [
-                // {'headerIndex': 0, 'value': false, 'hex': '000000'},
-                // {'headerIndex': 1, 'value': false, 'hex': '000000'}
+                // {'id': 0, 'value': false, 'hex': '000000'},
+                // {'id': 1, 'value': false, 'hex': '000000'}
                 // ],
                 // columns: [
-                //     {'columnIndex': 0, 'value': false, 'hex': '000000'},
-                //     {'columnIndex': 1, 'value': false, 'hex': '000000'}
+                //     {'id': 0, 'value': false, 'hex': '000000'},
+                //     {'id': 1, 'value': false, 'hex': '000000'}
                 // ],
                 // totalRow: {'value': false, 'hex': '000000'}
             }
@@ -36,23 +30,45 @@ const reducer = (state = initialState, action) => {
     switch(action.type) {
         case 'UPDATE_DATA_SET':
             return {
-                ...state,
-                multiDataSet: state.multiDataSet.concat({
+                ...newState,
+                multiDataSet: newState.multiDataSet.concat({
                     columns: action.colVals,
                     data: action.rowVals
                 })
             }
         case 'SELECT_SHEET':
             return {
-                ...state,
+                ...newState,
                 sheetName: action.value
             }
         case 'SET_SELECTED_COLUMNS':
             return {
-                ...state,
+                ...newState,
                 userConfig: {
-                    ...state.userConfig,
+                    ...newState.userConfig,
                     userSelectedColumns: action.value
+                }
+            }
+        case 'SET_HEADERS_BOLD':
+            return {
+                ...newState,
+                userConfig: {
+                    ...newState.userConfig,
+                    bold: {
+                        ...newState.userConfig.bold,
+                        headers: action.value
+                    }
+                }
+            }
+        case 'SET_COLUMNS_BOLD':
+            return {
+                ...newState,
+                userConfig: {
+                    ...newState.userConfig,
+                    bold: {
+                        ...newState.userConfig.bold,
+                        columns: action.value
+                    }
                 }
             }
         default :

@@ -7,8 +7,13 @@ const CheckboxGroup = Checkbox.Group
 class SelectColumns extends Component {
     
     componentDidMount() {
+        console.log('Get Data Set in SelectCols Comp', this.props.multiDataSet)
         if ( this.props.multiDataSet.length > 0 ) {
-            this.props.onSetSelectedColumns(this.props.multiDataSet[0].columns)
+            // console.log(this.props.multiDataSet[0].columns)
+            // console.log(this.props.multiDataSet[0].data)
+            // if (this.props.multiDataSet[0].columns.length > 0 && this.props.multiDataSet[0].data > 0) {
+                this.props.onSetSelectedColumns(this.props.multiDataSet[0].columns)
+            // }
         }
     }
 
@@ -25,18 +30,38 @@ class SelectColumns extends Component {
         ?   
             (
                 <div className={styles.SelectColumnsContainer}>
-                    <div><Icon type="area-chart" /> {this.props.sheetName}</div>
-                    <CheckboxGroup
-                        className={styles.CheckboxGroup}
-                        defaultValue={this.props.multiDataSet[0].columns}
-                        onChange={this.onChange} 
-                    >
-                        { 
-                            this.props.multiDataSet[0].columns.map( eaCol => 
-                                <div key={eaCol}><Checkbox value={eaCol}>{eaCol} <Icon type="bar-chart" /> </Checkbox></div>
-                            ) 
-                        }
-                    </CheckboxGroup>
+                    <div className={styles.Header}><Icon type="area-chart" /> {this.props.sheetName}</div>
+                    <div className={styles.CheckBoxGroupContainer}>
+                        {/* <div>
+                            <div className={styles.SectionHeader}>Toggle Columns</div>
+                            <CheckboxGroup
+                                className={`${styles.CheckboxGroup}, ${styles.ToggleColumnsContainer}`}
+                                defaultValue={this.props.multiDataSet[0].columns}
+                                onChange={this.onChange} 
+                            >
+                                { 
+                                    this.props.multiDataSet[0].columns.map( eaCol => 
+                                        <div key={eaCol}><Checkbox value={eaCol}>{eaCol} <Icon type="bar-chart" /> </Checkbox></div>
+                                    ) 
+                                }
+                            </CheckboxGroup>
+                        </div> */}
+                        <div>
+                            <div className={styles.SectionHeader}>Toggle Totals</div>
+                            <CheckboxGroup
+                                    className={styles.CheckboxGroup}
+                                    defaultValue={this.props.multiDataSet[0].columns}
+                                    onChange={this.onChange} 
+                                >
+                                    { 
+                                        this.props.multiDataSet[0].columns.map( eaCol => 
+                                            <div key={eaCol}><Checkbox value={eaCol}>{eaCol} <Icon type="bar-chart" /> </Checkbox></div>
+                                        ) 
+                                    }
+                            </CheckboxGroup>
+                        </div>
+                    </div>
+                    <div># of rows: </div>
                 </div>
             )
         :

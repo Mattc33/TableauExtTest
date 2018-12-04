@@ -11,9 +11,9 @@
         <url>https://tableau-exporter-ext.netlify.com/</url>
     </source-location>
     <icon></icon>
-    <permissions>
+    <!-- <permissions>
         <permission>full data</permission>
-    </permissions>
+    </permissions> -->
     </dashboard-extension>
     <resources>
         <resource id="name">

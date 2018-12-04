@@ -3,7 +3,6 @@ import './App.css'
 
 import Layout from './Containers/Layout/Layout'
 class App extends Component {
-
     render() {
         return (
             <Layout />

@@ -14,7 +14,7 @@ const Layout = () => (
     <div>
         <Header />
         <Collapse accordion className={styles.Accordion}>
-            <Panel header="1. Select Worksheet" key="1">
+            <Panel header="1. Select Worksheet & Data" key="1">
                 <SelectWorksheet />
             </Panel>
 

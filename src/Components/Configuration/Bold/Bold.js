@@ -1,101 +1,51 @@
 import React, { Component } from 'react'
 import styles from './Bold.module.sass'
-import { Checkbox, Divider } from 'antd'
 import { connect } from 'react-redux'
 
-const CheckboxGroup = Checkbox.Group
-
-// class App extends React.Component {
-//   state = {
-//     checkedList: defaultCheckedList,
-//     indeterminate: true,
-//     checkAll: false,
-//   };
-
-//   render() {
-//     return (
-//       <div>
-//         <div style={{ borderBottom: '1px solid #E9E9E9' }}>
-//           <Checkbox
-//             indeterminate={this.state.indeterminate}
-//             onChange={this.onCheckAllChange}
-//             checked={this.state.checkAll}
-//           >
-//             Check all
-//           </Checkbox>
-//         </div>
-//         <br />
-//         <CheckboxGroup options={plainOptions} value={this.state.checkedList} onChange={this.onChange} />
-//       </div>
-//     );
-//   }
-
-//   onChange = (checkedList) => {
-//     this.setState({
-//       checkedList,
-//       indeterminate: !!checkedList.length && (checkedList.length < plainOptions.length),
-//       checkAll: checkedList.length === plainOptions.length,
-//     });
-//   }
-
-//   onCheckAllChange = (e) => {
-//     this.setState({
-//       checkedList: e.target.checked ? plainOptions : [],
-//       indeterminate: false,
-//       checkAll: e.target.checked,
-//     });
-//   }
-// }
-
-
+import CellStyleOptionGroup from '../../CellStyleOptionGroup/CellStyleOptionGroup'
 class Bold extends Component {
 
-    state = {
-        // checkedList: defaultCheckedList,
-        indeterminate: true,
-        checkAll: false
+    flipHeadersToBold = (checkboxValues) => {
+        const headersToBoldState = this.modifyBoldedState(checkboxValues)
+        this.props.onFlipHeadersToBold(headersToBoldState)
     }
 
-    onChange = (checkedList) => {
-        console.log(checkedList)
-        // this.setState({
-        //   checkedList,
-        //   indeterminate: !!checkedList.length && (checkedList.length < plainOptions.length),
-        //   checkAll: checkedList.length === plainOptions.length,
-        // });
-      }
+    flipColumnsToBold = (checkboxValues) => {
+        const columnsToBoldState = this.modifyBoldedState(checkboxValues)
+        this.props.onFlipColumnsToBold(columnsToBoldState)
+    }
+
+    flipTotalRowToBold = () => {
+
+    }
+
+    modifyBoldedState = (checkboxValues) => {
+        const originalCols = this.props.multiDataSet[0].columns
+        return originalCols.map( (eaCol, index) => { // ! refactor this to be a lookup table instead?
+            return ( checkboxValues.includes(eaCol) )
+                ? {'id': index, 'value': true, 'name': eaCol}
+                : {'id': index, 'value': false, 'name': eaCol}
+        })
+    }
 
     render() {
-        console.log(this.props.userConfig)
         return (
             
             <div className={styles.BoldContainer}>
-                <Divider orientation="left">Column Headers</Divider>
-                <div>
-                    <Checkbox
-                        indeterminate={this.state.indeterminate}
-                        onChange={this.onCheckAllChange}
-                        checked={this.state.checkAll}
-                    >
-                    Check all
-                    </Checkbox>
-                    <Divider type="vertical" />
-                    <CheckboxGroup options={this.props.userConfig.userSelectedColumns}/>
-                </div>
-                
-                <Divider orientation="left">Whole Column</Divider>
-                <div>
-                    <Checkbox
-                        indeterminate={this.state.indeterminate}
-                        onChange={this.onCheckAllChange}
-                        checked={this.state.checkAll}
-                    >
-                    Check all
-                    </Checkbox>
-                    <Divider type="vertical" />
-                    <CheckboxGroup options={this.props.userConfig.userSelectedColumns}/>
-                </div>
-                
+
+                <CellStyleOptionGroup
+                    dividerName="Column Headers"
+                    userSelectedColumns={this.props.userConfig.userSelectedColumns}
+                    flipToBold={this.flipHeadersToBold} 
+                />
+
+                <CellStyleOptionGroup
+                    dividerName="Data Column"
+                    userSelectedColumns={this.props.userConfig.userSelectedColumns}
+                    flipToBold={this.flipColumnsToBold} 
+                />
+
+                {/* 
                 <Divider orientation="left">Final Row</Divider>
                 <div>
                     <Checkbox
@@ -103,7 +53,7 @@ class Bold extends Component {
                     >
                      Final Row
                     </Checkbox>
-                </div>
+                </div> */}
 
                 {/* options={[1,2,3,4]} value={this.state.checkedList} onChange={this.onChange} */}
             </div>
@@ -113,13 +63,15 @@ class Bold extends Component {
 
 const mapStateToProps = (state) => {
     return {
+        multiDataSet: state.multiDataSet,
         userConfig: state.userConfig
     }
 }
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        onSetSelectedColumns: (columnsArr) => dispatch({type: 'SET_SELECTED_COLUMNS', value: columnsArr})
+        onFlipHeadersToBold: (headersToBoldState) => dispatch({type: 'SET_HEADERS_BOLD', value: headersToBoldState}),
+        onFlipColumnsToBold: (columnsToBoldState) => dispatch({type: 'SET_COLUMNS_BOLD', value: columnsToBoldState})
     }
 }
 

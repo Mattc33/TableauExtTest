@@ -1,1 +1,3 @@
 @import '~antd/dist/antd.css';
+@import 'https://cdnjs.cloudflare.com/ajax/libs/ag-grid/19.1.4/styles/ag-grid.css';
+@import 'https://cdnjs.cloudflare.com/ajax/libs/ag-grid/19.1.4/styles/ag-theme-fresh.css';
