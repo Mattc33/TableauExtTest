@@ -14,7 +14,7 @@ class Configuration extends Component {
     // }
 
     render() {
-        return this.props.userConfig.userSelectedColumns.length > 0
+        return this.props.multiDataSet.length > 0
         ?
             (
                 <div className={styles.ConfigurationContainer}>
@@ -40,7 +40,8 @@ class Configuration extends Component {
 
 const mapStateToProps = (state) => {
     return {
-        userConfig: state.userConfig
+        userConfig: state.userConfig,
+        multiDataSet: state.multiDataSet
     }
 }
 

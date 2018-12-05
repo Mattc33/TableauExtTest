@@ -15,57 +15,84 @@ class Footer extends Component {
 
     createExcelSheet = () => { // ? initialization function
 
-        // ? Step 0. Reset State
+        // ? Step 0. Reset State, create a copy of multiData to maintain immutability
         this.setState({multiDataSet: [], multiDataSetString: ''})
-
-        const multiData = [...this.props.multiDataSet]
-        const rowData = multiData[0].data
-        let colDataCopy = [...this.props.multiDataSet[0].columns] // ? Create a column mimic in data object in array location [0]
+        const multiDataCopy = [...this.props.multiDataSet]
+        let colDataCopy = [...multiDataCopy[0].columns]
+        console.log('original multiDataCopy', multiDataCopy)
         
         // ? Step 1. Create a custom column setup
-        multiData[0].columns = multiData[0].columns.map( (eaCol, index) => {
+        multiDataCopy[0].columns = multiDataCopy[0].columns.map( (eaCol, index) => {
             return index !== 0
                 ? ''
                 : 'Insert Logo Here' 
         })
-
-        // ? Step 2. Append total rows
-        let multiDataWithTotal = [
-            ...multiData, 
+        console.log('apply custom column', multiDataCopy)
+        
+        // ? Step 2. Append new obj as Total Rows & apply styles if applicable
+        const totalRow = this.processTotals(colDataCopy, multiDataCopy[0].data)
+        const multiDataWithTotal = [
+            ...multiDataCopy, 
             {
-                columns: multiData[0].columns.map( eaCol => ''),
-                data: [this.processTotals(rowData)]
+                columns: multiDataCopy[0].columns.map( eaCol => ''),
+                data: [totalRow]
             }
         ]
+        console.log('multiDataWithTotal', multiDataWithTotal)
 
-        // ? Step 3. Apply column styling to Data Columns
-        multiDataWithTotal[0].data = this.processColumnStyles(multiDataWithTotal[0].data)
+        // ? Step 3. Apply Row Total Styling if applicable
+        if ( this.props.userConfig.bold.totalRow.length > 0) {
+            console.log(multiDataWithTotal[1].data[0])
+            multiDataWithTotal[1].data = [this.processRowTotalStyles(multiDataWithTotal[1].data[0])]
+        }
 
-        // ? Step 4. Create a column copy into data arr, apply any styling
-        colDataCopy = this.processColumnHeadersStyle(colDataCopy)
+        // ? Step 4. Apply styling to Data Columns if applicable
+        if ( this.props.userConfig.bold.columns.length > 0 ) {
+            multiDataWithTotal[0].data = this.processDataColumnStyle(multiDataWithTotal[0].data)
+        }
+
+        // ? Step 5. Create a column copy into data arr, apply any styling if applicable
+        if (this.props.userConfig.bold.headers.length > 0 ) {
+            colDataCopy = this.processRowHeaderStyles(colDataCopy)
+        }
         multiDataWithTotal[0].data.unshift(colDataCopy)
-        
+
         this.setState(
             {
                 multiDataSet: multiDataWithTotal,
                 multiDataSetString: JSON.stringify(multiDataWithTotal)
-            }
+            },
+            () => {console.log(this.state.multiDataSet, this.state.multiDataSetString)}
         )
     }
 
-    processColumnStyles = (rowData) => {
+    // processStyle = (rowData, type) => {
+
+    // }
+
+    processRowHeaderStyles = (rowData) => {
+        return rowData.map( (eaCol, index) => {
+            return {'value': eaCol, style: {font: {bold: this.props.userConfig.bold.headers[index].value}}}
+        })
+    }
+
+    processDataColumnStyle = (rowData) => { // ? process Columns Last
         return rowData.map( (eaRow) => {
             return eaRow.map( (eaValue, index) => {
-                const shouldStyle = this.props.userConfig.bold.columns[index].value
-                return {value: eaValue, style: {font: {bold: shouldStyle}}}
+                return {value: eaValue, style: {font: {bold: this.props.userConfig.bold.columns[index].value}}}
             })
         })
     }
 
-    processTotals = (rowData) => { // ? process total Rows Second to Last
-        const numOfRowValues = rowData[0].length
+    processRowTotalStyles = (rowData) => {
+        return rowData.map( (eaValue, index) => {
+            return {value: `${eaValue}`, style: {font: {bold: this.props.userConfig.bold.totalRow[index].value}}}
+        })
+    }
+
+    processTotals = (colData, rowData) => { // ? process total Rows Second to Last
         const totalArr = []
-        for ( let i = 0; i < numOfRowValues; i++) {
+        for ( let i = 0; i < colData.length; i++) {
             const totalValue = rowData.reduce( (total, value) => {
                 if(isNaN(parseFloat(value[i]))) {
                     return ''
@@ -76,12 +103,6 @@ class Footer extends Component {
             totalArr.push(totalValue)
         }
         return totalArr
-    }
-
-    processColumnHeadersStyle = (rowData) => { // ? process Columns Last
-        return rowData.map( (eaCol, index) => {
-            return {'value': eaCol, style: {font: {bold: this.props.userConfig.bold.headers[index].value}}}
-        })
     }
 
     copyToClipboard = () => {

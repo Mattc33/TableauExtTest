@@ -15,8 +15,9 @@ class Bold extends Component {
         this.props.onFlipColumnsToBold(columnsToBoldState)
     }
 
-    flipTotalRowToBold = () => {
-
+    flipTotalRowToBold = (checkboxValues) => {
+        const totalRowToBoldState = this.modifyBoldedState(checkboxValues)
+        this.props.onFlipTotalRowToBold(totalRowToBoldState)
     }
 
     modifyBoldedState = (checkboxValues) => {
@@ -30,32 +31,24 @@ class Bold extends Component {
 
     render() {
         return (
-            
             <div className={styles.BoldContainer}>
-
                 <CellStyleOptionGroup
-                    dividerName="Column Headers"
-                    userSelectedColumns={this.props.userConfig.userSelectedColumns}
+                    dividerName="Headers Row"
+                    userSelectedColumns={this.props.multiDataSet[0].columns}
                     flipToBold={this.flipHeadersToBold} 
                 />
 
                 <CellStyleOptionGroup
                     dividerName="Data Column"
-                    userSelectedColumns={this.props.userConfig.userSelectedColumns}
+                    userSelectedColumns={this.props.multiDataSet[0].columns}
                     flipToBold={this.flipColumnsToBold} 
                 />
 
-                {/* 
-                <Divider orientation="left">Final Row</Divider>
-                <div>
-                    <Checkbox
-                        onChange={this.onCheckAllChange}
-                    >
-                     Final Row
-                    </Checkbox>
-                </div> */}
-
-                {/* options={[1,2,3,4]} value={this.state.checkedList} onChange={this.onChange} */}
+                <CellStyleOptionGroup
+                    dividerName="Total Row"
+                    userSelectedColumns={this.props.multiDataSet[0].columns}
+                    flipToBold={this.flipTotalRowToBold} 
+                />
             </div>
         )
     }
@@ -71,7 +64,8 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
     return {
         onFlipHeadersToBold: (headersToBoldState) => dispatch({type: 'SET_HEADERS_BOLD', value: headersToBoldState}),
-        onFlipColumnsToBold: (columnsToBoldState) => dispatch({type: 'SET_COLUMNS_BOLD', value: columnsToBoldState})
+        onFlipColumnsToBold: (columnsToBoldState) => dispatch({type: 'SET_COLUMNS_BOLD', value: columnsToBoldState}),
+        onFlipTotalRowToBold: (totalRowToBoldState) => dispatch({type: 'SET_TOTALROW_BOLD', value: totalRowToBoldState})
     }
 }
 

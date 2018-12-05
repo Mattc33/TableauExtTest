@@ -7,7 +7,7 @@ const initialState = {
             {
                 headers: [],
                 columns: [],
-                totalRow: false
+                totalRow: []
             },
         backgroundColor: 
             {                
@@ -19,7 +19,7 @@ const initialState = {
                 //     {'id': 0, 'value': false, 'hex': '000000'},
                 //     {'id': 1, 'value': false, 'hex': '000000'}
                 // ],
-                // totalRow: {'value': false, 'hex': '000000'}
+                // totalRow: []
             }
     }
 }
@@ -68,6 +68,17 @@ const reducer = (state = initialState, action) => {
                     bold: {
                         ...newState.userConfig.bold,
                         columns: action.value
+                    }
+                }
+            }
+        case 'SET_TOTALROW_BOLD':
+            return {
+                ...newState,
+                userConfig: {
+                    ...newState.userConfig,
+                    bold: {
+                        ...newState.userConfig.bold,
+                        totalRow: action.value
                     }
                 }
             }

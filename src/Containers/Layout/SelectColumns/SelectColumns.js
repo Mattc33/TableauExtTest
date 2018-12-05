@@ -7,23 +7,19 @@ const CheckboxGroup = Checkbox.Group
 class SelectColumns extends Component {
     
     componentDidMount() {
-        console.log('Get Data Set in SelectCols Comp', this.props.multiDataSet)
-        if ( this.props.multiDataSet.length > 0 ) {
-            // console.log(this.props.multiDataSet[0].columns)
-            // console.log(this.props.multiDataSet[0].data)
-            // if (this.props.multiDataSet[0].columns.length > 0 && this.props.multiDataSet[0].data > 0) {
-                this.props.onSetSelectedColumns(this.props.multiDataSet[0].columns)
-            // }
-        }
+        // console.log('Get Data Set in SelectCols Comp', this.props.multiDataSet)
+        // if ( this.props.multiDataSet.length > 0 ) {
+        //     this.props.onSetSelectedColumns(this.props.multiDataSet[0].columns)
+        // }
     }
 
     componentDidUpdate() {
         console.log('SelectColumns', this.props.userConfig)
     }
 
-    onChange = (currentCheckedState) => {
-        this.props.onSetSelectedColumns(currentCheckedState)
-    }
+    // onChange = (currentCheckedState) => {
+    //     this.props.onSetSelectedColumns(currentCheckedState)
+    // }
 
     render() {
         return this.props.multiDataSet.length > 0
@@ -32,7 +28,7 @@ class SelectColumns extends Component {
                 <div className={styles.SelectColumnsContainer}>
                     <div className={styles.Header}><Icon type="area-chart" /> {this.props.sheetName}</div>
                     <div className={styles.CheckBoxGroupContainer}>
-                        {/* <div>
+                        <div>
                             <div className={styles.SectionHeader}>Toggle Columns</div>
                             <CheckboxGroup
                                 className={`${styles.CheckboxGroup}, ${styles.ToggleColumnsContainer}`}
@@ -45,7 +41,7 @@ class SelectColumns extends Component {
                                     ) 
                                 }
                             </CheckboxGroup>
-                        </div> */}
+                        </div>
                         <div>
                             <div className={styles.SectionHeader}>Toggle Totals</div>
                             <CheckboxGroup

@@ -51,7 +51,6 @@ class SelectWorksheet extends Component {
                     })
                     .then( (data) => {
                         // ? parse data and load into preview table
-                        console.log(data)
                         this.parseColToGrid(data.colData)
                         this.parseDataToGrid(data.rowData)
                     })
