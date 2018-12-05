@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
 import { Checkbox, Divider } from 'antd'
-
 import Auxx from '../../HOC/Auxx'
 
 const CheckboxGroup = Checkbox.Group

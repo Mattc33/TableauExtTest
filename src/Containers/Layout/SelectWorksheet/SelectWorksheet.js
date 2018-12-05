@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import styles from './SelectWorksheet.module.sass'
-import { Select, Icon, Divider, Button } from 'antd'
+import { Select, Icon, Button } from 'antd'
 import { connect } from 'react-redux'
 import ReactTable from "react-table"
 import 'react-table/react-table.css'
@@ -9,7 +9,6 @@ import 'react-table/react-table.css'
 /* global tableau */
 
 const Option = Select.Option
-
 class SelectWorksheet extends Component {
 
     state = {
@@ -97,7 +96,8 @@ class SelectWorksheet extends Component {
                                 this.state.worksheets.map( eaSheet => 
                                     <Option value={eaSheet} key={eaSheet} className={styles.Option}>
                                         <Icon type="area-chart" /><span> {eaSheet}</span>
-                                    </Option>) 
+                                    </Option>
+                                ) 
                             }
                         </Select>
                     </div>

@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import styles from './Configuration.module.sass'
-import { Tabs, Radio } from 'antd'
+import { Tabs } from 'antd'
 import { connect } from 'react-redux'
 
 import Bold from '../../../Components/Configuration/Bold/Bold'
@@ -28,7 +28,7 @@ class Configuration extends Component {
                             <Bold tabTitle="Bold" />
                         </TabPane>
                         <TabPane tab="Background Color" key="2">
-                            <Bold tabTitle="Background Color" />
+                            
                         </TabPane>
                     </Tabs>
                 </div>

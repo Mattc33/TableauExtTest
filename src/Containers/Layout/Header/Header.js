@@ -3,7 +3,6 @@ import styles from './Header.module.sass'
 
 // Declare this so our linter knows that tableau is a global object
 /* global tableau */
-
 class Header extends Component {
 
     state = {

@@ -17,7 +17,8 @@ class Footer extends Component {
 
         // ? Step 0. Reset State, create a copy of multiData to maintain immutability
         this.setState({multiDataSet: [], multiDataSetString: ''})
-        const multiDataCopy = [...this.props.multiDataSet]
+        // const multiDataCopy = [...this.props.multiDataSet]
+        const multiDataCopy = JSON.parse(JSON.stringify(this.props.multiDataSet)) // ! make a deep clone of the redux store dataset
         let colDataCopy = [...multiDataCopy[0].columns]
         console.log('original multiDataCopy', multiDataCopy)
         

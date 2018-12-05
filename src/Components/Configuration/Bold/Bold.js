@@ -5,6 +5,14 @@ import { connect } from 'react-redux'
 import CellStyleOptionGroup from '../../CellStyleOptionGroup/CellStyleOptionGroup'
 class Bold extends Component {
 
+    state = {
+        multiDataSetColumns: []
+    }
+
+    componentDidMount() {
+        this.setState({multiDataSetColumns: [...this.props.multiDataSet[0].columns]})
+    }
+
     flipHeadersToBold = (checkboxValues) => {
         const headersToBoldState = this.modifyBoldedState(checkboxValues)
         this.props.onFlipHeadersToBold(headersToBoldState)
