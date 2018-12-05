@@ -10,16 +10,11 @@ const initialState = {
                 totalRow: []
             },
         backgroundColor: 
+            // {'id': 1, 'value': false, 'hex': '000000'}
             {                
-                // headers: [
-                // {'id': 0, 'value': false, 'hex': '000000'},
-                // {'id': 1, 'value': false, 'hex': '000000'}
-                // ],
-                // columns: [
-                //     {'id': 0, 'value': false, 'hex': '000000'},
-                //     {'id': 1, 'value': false, 'hex': '000000'}
-                // ],
-                // totalRow: []
+                headers: [],
+                columns: [],
+                totalRow: []
             }
     }
 }

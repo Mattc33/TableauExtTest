@@ -121,7 +121,7 @@ class Footer extends Component {
                 <div>
                     <Button onClick={ this.createExcelSheet } className={styles.ApplySettings}> Apply Settings </Button>
 
-                    <button onClick={ () => console.log('test', this.props.userConfig) }>TEST</button> 
+                    {/* <button onClick={ () => console.log('test', this.props.userConfig) }>TEST</button>  */}
                 
                     <div className={styles.DownloadContainer}>
                         <div>
