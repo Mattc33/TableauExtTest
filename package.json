@@ -12,6 +12,7 @@
     "antd": "^3.10.9",
     "node-sass": "^4.10.0",
     "react": "^16.6.3",
+    "react-color": "^2.14.1",
     "react-dom": "^16.6.3",
     "react-export-excel": "^0.5.3",
     "react-popout": "^1.0.1",

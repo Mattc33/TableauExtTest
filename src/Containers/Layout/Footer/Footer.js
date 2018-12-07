@@ -17,10 +17,8 @@ class Footer extends Component {
 
         // ? Step 0. Reset State, create a copy of multiData to maintain immutability
         this.setState({multiDataSet: [], multiDataSetString: ''})
-        // const multiDataCopy = [...this.props.multiDataSet]
         const multiDataCopy = JSON.parse(JSON.stringify(this.props.multiDataSet)) // ! make a deep clone of the redux store dataset
         let colDataCopy = [...multiDataCopy[0].columns]
-        console.log('original multiDataCopy', multiDataCopy)
         
         // ? Step 1. Create a custom column setup
         multiDataCopy[0].columns = multiDataCopy[0].columns.map( (eaCol, index) => {
@@ -28,7 +26,6 @@ class Footer extends Component {
                 ? ''
                 : 'Insert Logo Here' 
         })
-        console.log('apply custom column', multiDataCopy)
         
         // ? Step 2. Append new obj as Total Rows & apply styles if applicable
         const totalRow = this.processTotals(colDataCopy, multiDataCopy[0].data)
@@ -39,21 +36,22 @@ class Footer extends Component {
                 data: [totalRow]
             }
         ]
-        console.log('multiDataWithTotal', multiDataWithTotal)
+
+        // ! Styling Section
+        const userConfig = this.props.userConfig
 
         // ? Step 3. Apply Row Total Styling if applicable
-        if ( this.props.userConfig.bold.totalRow.length > 0) {
-            console.log(multiDataWithTotal[1].data[0])
+        if ( userConfig.bold.totalRow.length > 0 || userConfig.backgroundColor.totalRow.length > 0) {
             multiDataWithTotal[1].data = [this.processRowTotalStyles(multiDataWithTotal[1].data[0])]
         }
 
         // ? Step 4. Apply styling to Data Columns if applicable
-        if ( this.props.userConfig.bold.columns.length > 0 ) {
+        if ( userConfig.bold.columns.length > 0 || userConfig.backgroundColor.columns.length > 0) {
             multiDataWithTotal[0].data = this.processDataColumnStyle(multiDataWithTotal[0].data)
         }
 
         // ? Step 5. Create a column copy into data arr, apply any styling if applicable
-        if (this.props.userConfig.bold.headers.length > 0 ) {
+        if (userConfig.bold.headers.length > 0 || userConfig.backgroundColor.headers.length > 0) {
             colDataCopy = this.processRowHeaderStyles(colDataCopy)
         }
         multiDataWithTotal[0].data.unshift(colDataCopy)
@@ -67,27 +65,70 @@ class Footer extends Component {
         )
     }
 
-    // processStyle = (rowData, type) => {
-
-    // }
-
     processRowHeaderStyles = (rowData) => {
         return rowData.map( (eaCol, index) => {
-            return {'value': eaCol, style: {font: {bold: this.props.userConfig.bold.headers[index].value}}}
+            const cellWithStyle = {value: eaCol, style: {}}
+
+            if ( typeof this.props.userConfig.bold.headers[index] !== 'undefined') {
+                if (this.props.userConfig.bold.headers[index].value) {
+                    cellWithStyle.style.font = {bold: true}
+                }
+            }
+            if ( typeof this.props.userConfig.backgroundColor.headers[index] !== 'undefined') {
+                if (this.props.userConfig.backgroundColor.headers[index].value) {
+                    cellWithStyle.style.fill = {
+                        patternType: "solid",
+                        fgColor: {rgb: this.props.userConfig.backgroundColor.headers[index].hex}
+                    }
+                }
+            }
+
+            return cellWithStyle
         })
     }
 
     processDataColumnStyle = (rowData) => { // ? process Columns Last
         return rowData.map( (eaRow) => {
             return eaRow.map( (eaValue, index) => {
-                return {value: eaValue, style: {font: {bold: this.props.userConfig.bold.columns[index].value}}}
+                const cellWithStyle = {value: eaValue, style: {}}
+                
+                if ( typeof this.props.userConfig.bold.columns[index] !== 'undefined') {
+                    if (this.props.userConfig.bold.columns[index].value) {
+                        cellWithStyle.style.font = {bold: true}
+                    }
+                }
+                if ( typeof this.props.userConfig.backgroundColor.columns[index] !== 'undefined') {
+                    if (this.props.userConfig.backgroundColor.columns[index].value) {
+                        cellWithStyle.style.fill = {
+                            patternType: "solid", 
+                            fgColor: {rgb: this.props.userConfig.backgroundColor.columns[index].hex}
+                        }
+                    }
+                }
+
+                return cellWithStyle
             })
         })
     }
 
     processRowTotalStyles = (rowData) => {
         return rowData.map( (eaValue, index) => {
-            return {value: `${eaValue}`, style: {font: {bold: this.props.userConfig.bold.totalRow[index].value}}}
+            const cellWithStyle = { value: `${eaValue}`, style: {}}
+
+            if ( typeof this.props.userConfig.bold.totalRow[index] !== 'undefined') {
+                if (this.props.userConfig.bold.totalRow[index].value) {
+                    cellWithStyle.style.font = {bold: true}
+                }
+            }
+            if ( typeof this.props.userConfig.backgroundColor.totalRow[index] !== 'undefined') {
+                if (this.props.userConfig.backgroundColor.totalRow[index].value) {
+                    cellWithStyle.style.fill = {
+                        patternType: "solid", fgColor: {rgb: this.props.userConfig.backgroundColor.totalRow[index].hex}
+                    }
+                }
+            }
+
+            return cellWithStyle
         })
     }
 

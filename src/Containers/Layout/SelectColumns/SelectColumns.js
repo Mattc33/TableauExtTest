@@ -57,7 +57,7 @@ class SelectColumns extends Component {
                             </CheckboxGroup>
                         </div>
                     </div>
-                    <div># of rows: </div>
+                    {/* <div># of rows: </div> */}
                 </div>
             )
         :

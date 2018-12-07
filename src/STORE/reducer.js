@@ -19,7 +19,7 @@ const initialState = {
     }
 }
 
-const reducer = (state = initialState, action) => {
+const reducer = (state = initialState, action) => { // ! organize reducer split into multiple
     const newState = {...state}
 
     switch(action.type) {
@@ -73,6 +73,39 @@ const reducer = (state = initialState, action) => {
                     ...newState.userConfig,
                     bold: {
                         ...newState.userConfig.bold,
+                        totalRow: action.value
+                    }
+                }
+            }
+        case 'SET_HEADERS_BC':
+            return {
+                ...newState,
+                userConfig: {
+                    ...newState.userConfig,
+                    backgroundColor: {
+                        ...newState.userConfig.backgroundColor,
+                        headers: action.value
+                    }
+                }
+            }
+        case 'SET_COLUMNS_BC':
+            return {
+                ...newState,
+                userConfig: {
+                    ...newState.userConfig,
+                    backgroundColor: {
+                        ...newState.userConfig.backgroundColor,
+                        columns: action.value
+                    }
+                }
+            }
+        case 'SET_TOTALROW_BC':
+            return {
+                ...newState,
+                userConfig: {
+                    ...newState.userConfig,
+                    backgroundColor: {
+                        ...newState.userConfig.backgroundColor,
                         totalRow: action.value
                     }
                 }

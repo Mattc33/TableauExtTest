@@ -3,11 +3,11 @@
     <dashboard-extension id="com.tableau.extensions.dashboard.slalom.tableauExtPOC" extension-version="1.0.0">
     <default-locale>en_US</default-locale>
     <name resource-id="name"/>
-    <description>Exports sheet Data to Excel</description>
+    <description>Exports sheet Data to Excel Format</description>
     <author name="mattchan" email="matthew.chan@slalom.com" organization="slalom" website="https://www.slalom.com/"/>
     <min-api-version>0.6</min-api-version>
     <source-location>
-        <url></url>
+        <url>https://cbs-tableau-poc-ext.firebaseapp.com/</url>
     </source-location>
     <icon></icon>
     <!-- <permissions>

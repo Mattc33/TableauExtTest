@@ -1,17 +1,8 @@
 import React, { Component } from 'react'
-import styles from './Bold.module.sass'
 import { connect } from 'react-redux'
 
 import CellStyleOptionGroup from '../../CellStyleOptionGroup/CellStyleOptionGroup'
 class Bold extends Component {
-
-    state = {
-        multiDataSetColumns: []
-    }
-
-    componentDidMount() {
-        this.setState({multiDataSetColumns: [...this.props.multiDataSet[0].columns]})
-    }
 
     flipHeadersToBold = (checkboxValues) => {
         const headersToBoldState = this.modifyBoldedState(checkboxValues)
@@ -39,7 +30,7 @@ class Bold extends Component {
 
     render() {
         return (
-            <div className={styles.BoldContainer}>
+            <div>
                 <CellStyleOptionGroup
                     dividerName="Headers Row"
                     userSelectedColumns={this.props.multiDataSet[0].columns}

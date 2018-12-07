@@ -1,11 +1,13 @@
 import React, { Component } from 'react'
 import { Checkbox, Divider } from 'antd'
-import styles from './CellStyleOptionGroup.module.sass'
-import Auxx from '../../HOC/Auxx'
+import styles from './CellStyleOptionGroupBC.module.sass'
+import Auxx from '../../../../HOC/Auxx'
+
+import HexColorSquare from './HexColorSquare/HexColorSquare'
 
 const CheckboxGroup = Checkbox.Group
 
-class CellStyleOptionGroup extends Component {
+class CellStyleOptionGroupBC extends Component {
 
     plainOptions = this.props.userSelectedColumns
     defaultCheckedList = []
@@ -23,7 +25,7 @@ class CellStyleOptionGroup extends Component {
           checkAll: checkedList.length === this.plainOptions.length,
         })
 
-        this.props.flipToBold(checkedList)
+        this.props.flipToBC(checkedList)
     }
 
     onCheckAllChange = (e) => {
@@ -31,14 +33,14 @@ class CellStyleOptionGroup extends Component {
             checkedList: e.target.checked ? this.plainOptions : [],
             indeterminate: false,
             checkAll: e.target.checked,
-        }, () => {this.props.flipToBold(this.state.checkedList)}) // ? use this cb to get latest state
+        },() => {this.props.flipToBC(this.state.checkedList)}) // ? use this cb to get latest state
     }
 
     render() {
         return (
             <Auxx>
                 <Divider orientation="left">{this.props.dividerName}</Divider>
-                <div>
+                <div className={styles.OptionsContainer}>
                     <Checkbox
                         indeterminate={this.state.indeterminate}
                         onChange={this.onCheckAllChange}
@@ -48,9 +50,9 @@ class CellStyleOptionGroup extends Component {
                     </Checkbox>
                     <Divider type="vertical" />
                     <CheckboxGroup 
-                        options={this.props.userSelectedColumns}
                         value={this.state.checkedList} 
                         onChange={this.onChange}
+                        options={this.props.userSelectedColumns}
                     />
                 </div>
             </Auxx>
@@ -58,4 +60,4 @@ class CellStyleOptionGroup extends Component {
     }
 }
 
-export default CellStyleOptionGroup
+export default CellStyleOptionGroupBC

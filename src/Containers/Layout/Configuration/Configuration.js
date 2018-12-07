@@ -4,6 +4,7 @@ import { Tabs } from 'antd'
 import { connect } from 'react-redux'
 
 import Bold from '../../../Components/Configuration/Bold/Bold'
+import BackgroundColor from '../../../Components/Configuration/BackgroundColor/BackgroundColor'
 
 const TabPane = Tabs.TabPane
 
@@ -28,7 +29,7 @@ class Configuration extends Component {
                             <Bold tabTitle="Bold" />
                         </TabPane>
                         <TabPane tab="Background Color" key="2">
-                            
+                            <BackgroundColor tabTitle="Background Color" />
                         </TabPane>
                     </Tabs>
                 </div>
